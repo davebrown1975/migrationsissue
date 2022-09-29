@@ -1,3 +1,6 @@
+import org.grails.plugins.databasemigration.command.ApplicationContextDatabaseMigrationCommand
+import org.grails.plugins.databasemigration.command.DbmGormDiffCommand
+
 buildscript {
     repositories {
         maven { url "https://repo.grails.org/grails/core" }
@@ -67,6 +70,7 @@ dependencies {
     profile "org.grails.profiles:web"
     runtimeOnly "org.glassfish.web:el-impl:2.2.1-b05"
     runtimeOnly "com.h2database:h2"
+    runtimeOnly 'mysql:mysql-connector-java:8.0.25'
     runtimeOnly "org.apache.tomcat:tomcat-jdbc"
     runtimeOnly "javax.xml.bind:jaxb-api:2.3.1"
     runtimeOnly "com.bertramlabs.plugins:asset-pipeline-grails:3.4.6"
@@ -76,7 +80,7 @@ dependencies {
     testImplementation "org.grails:grails-web-testing-support"
 
     // database migrations
-    implementation 'org.liquibase:liquibase-core:4.16.1'
+    implementation 'org.liquibase.ext:liquibase-hibernate5:4.9.0'
     implementation 'org.grails.plugins:database-migration:4.1.0'
 
     // Hibernate Auditing
@@ -121,3 +125,8 @@ gradle.taskGraph.whenReady {graph ->
     }
 }
 
+tasks.withType(DbmGormDiffCommand) { task ->
+    println "Setting props $task "
+    systemProperties = System.properties
+    jvmArgs('-Dorg.hibernate.envers.audit_table_suffix=_aud')
+}
