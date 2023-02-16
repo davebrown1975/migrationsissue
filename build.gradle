@@ -10,7 +10,7 @@ buildscript {
         classpath "org.grails.plugins:hibernate5:7.3.0"
         classpath "com.bertramlabs.plugins:asset-pipeline-gradle:3.4.6"
 
-        classpath 'org.grails.plugins:database-migration:4.1.0'
+        classpath 'org.grails.plugins:database-migration:4.2.0'
     }
 }
 
@@ -81,7 +81,7 @@ dependencies {
 
     // database migrations
     implementation 'org.liquibase.ext:liquibase-hibernate5:4.9.0'
-    implementation 'org.grails.plugins:database-migration:4.1.0'
+    implementation 'org.grails.plugins:database-migration:4.2.0'
 
     // Hibernate Auditing
     implementation "org.hibernate:hibernate-envers:5.6.11.Final"
